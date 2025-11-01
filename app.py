@@ -4,6 +4,7 @@ from handle_sora_videos import handle_sora_video
 from utils import send_message_to_user, classify_link, classify_command
 import asyncio
 import traceback
+import threading
 
 #fetch bot_token set on Render and telegram API for the bot
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
@@ -53,11 +54,9 @@ async def handle_user_chat(update):
 @app.route(f"/webhook/{BOT_TOKEN}", methods=["POST"])
 def webhook():
     update = request.get_json(force=True)
-    try:
-        asyncio.run(handle_user_chat(update))
-    except Exception as e:
-        print("Error in handle:", e)
-        traceback.print_exc()
+    
+    threading.Thread(target=asyncio.run, args=(handle_user_chat(update),)).start()
+
     return jsonify({"ok": True})
 
 #its for testing
@@ -68,3 +67,4 @@ def health():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+
