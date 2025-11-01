@@ -23,7 +23,7 @@ async def handle_sora_video(video_link: str):
     wait = WebDriverWait(driver, 15)
     try:
         driver.get(WEBSITE)
-        time.sleep(3)
+        time.sleep(1)
 
         # Wait for textarea to appear
         textarea = wait.until(EC.presence_of_element_located((By.ID, "link-input")))
@@ -45,7 +45,7 @@ async def handle_sora_video(video_link: str):
         print("[SUCCESS] First Download button is now enabled, clicking...")
         download_button.click()
         print("[INFO] First Download button clicked wait 3 seconds.")
-        time.sleep(3)
+        time.sleep(1)
 
         # Wait for video result container to appear
         print("[INFO] Waiting for video result container to appear...")
@@ -58,7 +58,7 @@ async def handle_sora_video(video_link: str):
         print("[SUCCESS] Final download button is ready, clicking now.")
         final_btn.click()
         print("[INFO] Final Download button clicked wait 2 seconds.")
-        time.sleep(2)
+        time.sleep(3)
         
         # Fetch network logs and extract downloadable video URL
         logs = driver.get_log("performance")
@@ -84,3 +84,4 @@ async def handle_sora_video(video_link: str):
     finally:
 
         driver.quit()
+
