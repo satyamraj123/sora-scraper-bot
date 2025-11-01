@@ -44,8 +44,8 @@ async def handle_sora_video(video_link: str):
         download_button = driver.find_element(By.ID, "download-btn")
         print("[SUCCESS] First Download button is now enabled, clicking...")
         download_button.click()
-        print("[INFO] First Download button clicked wait 5 seconds.")
-        time.sleep(5)
+        print("[INFO] First Download button clicked wait 3 seconds.")
+        time.sleep(3)
 
         # Wait for video result container to appear
         print("[INFO] Waiting for video result container to appear...")
@@ -57,8 +57,8 @@ async def handle_sora_video(video_link: str):
         final_btn = wait.until(EC.element_to_be_clickable((By.ID, "download-no-watermark-btn")))
         print("[SUCCESS] Final download button is ready, clicking now.")
         final_btn.click()
-        print("[INFO] Final Download button clicked wait 5 seconds.")
-        time.sleep(5)
+        print("[INFO] Final Download button clicked wait 2 seconds.")
+        time.sleep(2)
         
         # Fetch network logs and extract downloadable video URL
         logs = driver.get_log("performance")
@@ -82,4 +82,5 @@ async def handle_sora_video(video_link: str):
         traceback.print_exc()
         return "ERROR"
     finally:
+
         driver.quit()
