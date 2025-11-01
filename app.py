@@ -23,14 +23,11 @@ async def handle_user_chat(update):
 
         #classify command
         command_result = classify_command(text)
-        send_message_to_user(TELEGRAM_API, chat_id, command_result)
 
         #if its not a command then classify the text further
         if not command_result:
-
             #classify if its sora link or not
             service=classify_link(text)
-            
             #if its not sora link then inform user
             if not service:
                 send_message_to_user(TELEGRAM_API, chat_id, f"Invalid sora video link ❌\n Please send only sora video link which should look like this: https://sora.chatgpt.com/p/abcdxyz")
@@ -38,7 +35,6 @@ async def handle_user_chat(update):
                 #scrape the website and get the video link without watermark
                 send_message_to_user(TELEGRAM_API, chat_id, "Removing watermark from your video 🔄 \nPlease wait 10 seconds ⏱️")
                 downloadable_link= await handle_sora_video(text)
-
                 #check if we got any error while scraping
                 if downloadable_link=="ERROR":
                     send_message_to_user(TELEGRAM_API, chat_id, "I'm really sorry 😞. Either the link is not correct or my services are not working. Please contact Admin.")
@@ -47,6 +43,8 @@ async def handle_user_chat(update):
                     send_message_to_user(TELEGRAM_API, chat_id, "Watermark Removed ✔️ \nOpen this link in any browser 👇")
                     send_message_to_user(TELEGRAM_API, chat_id, downloadable_link)
                     send_message_to_user(TELEGRAM_API, chat_id, "Share this bot with your friends and family if you liked it ✨ \nHave a Good Day 🌞")
+        else:
+            send_message_to_user(TELEGRAM_API, chat_id, command_result)
     else:
         raise Exception("message was not present in user response.")
     return ""
