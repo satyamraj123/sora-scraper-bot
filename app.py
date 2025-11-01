@@ -38,7 +38,6 @@ def health():
 
 @app.route(f"/webhook/{BOT_TOKEN}", methods=["POST"])
 def webhook():
-    return jsonify({"ok": True})
     update = request.get_json(force=True)
     # process update in background ideally — keep webhook fast
     try:
@@ -51,4 +50,5 @@ def webhook():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+
 
