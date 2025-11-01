@@ -15,9 +15,10 @@ def classify_link(text):
 
 def classify_command(text):
     if text[0]=="/":
-        if text in constants.commands_and_descriptions.keys():
-            return constants.commands_and_descriptions[text]
+        if text in constants.commands_and_response.keys():
+            return constants.commands_and_response[text]
         else:
             return "Invalid Command 😬. Type `/help` to see all the commands."
     else:
         None
+
